@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Toaster } from 'react-hot-toast';
-
+import Providers from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
         <div>
           <Toaster />
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}> <Providers>{children}</Providers></body>
         </div>
     </html>
     </GoogleOAuthProvider>
