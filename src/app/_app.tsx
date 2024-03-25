@@ -26,7 +26,7 @@ export default function App({
 }>) {
   return (
 
-    // <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
     <GoogleOAuthProvider clientId="730325407157-775dsanacqeau8u8m2bfvgur79h2c4gd.apps.googleusercontent.com">
       {/* <html lang="en"> */}
       <Toaster />
@@ -36,6 +36,6 @@ export default function App({
 
       {/* </html> */}
     </GoogleOAuthProvider>
-    // </QueryClientProvider>
+    </QueryClientProvider>
   );
 }

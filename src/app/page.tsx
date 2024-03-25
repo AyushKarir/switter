@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { BiHash, BiImageAlt, BiUser } from "react-icons/bi";
@@ -11,18 +11,22 @@ import { useCurrentUser } from "../../hooks/custom";
 
 import { useCreateStweet, useGetAllStweets } from "../../hooks/stweet";
 import StwitterLayout from "./components/Layout/stwitterLayout";
+import { Stweet } from "../../gql/graphql";
 
 
+interface HomeProps {
+  stweets?: Stweet[];
+}
 
-
-export default function Home() {
+export default function Home(props: HomeProps) {
   const { user } = useCurrentUser();
 
   const [content, setContent] = useState('');
-  const { mutate } = useCreateStweet();
+  const { mutateAsync } = useCreateStweet();
 
+  // const [_stweets, setSteweets] = useState<Stweet[]>();
 
-  const { stweets = [] } = useGetAllStweets();
+  const { stweets = props.stweets as Stweet[] } = useGetAllStweets();
 
 
   const handleSelectImage = useCallback(() => {
@@ -32,11 +36,12 @@ export default function Home() {
     input.click();
   }, []);
 
-  const handleCreateStweet = useCallback(() => {
-    mutate({
+  const handleCreateStweet = useCallback(async () => {
+    await mutateAsync({
       content,
     });
-  }, [content, mutate]);
+    setContent('')
+  }, [mutateAsync, content]);
 
 
 
